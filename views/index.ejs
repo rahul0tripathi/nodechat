@@ -1,0 +1,140 @@
+<html>
+
+<head>
+    <title>NodeChat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+
+    <link href="/style.css" rel="stylesheet" />
+</head>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+  <link href="/style.css" rel="stylesheet" />
+  <link rel="shortcut icon" type="image/png" href="/logolarge.png" />
+
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="js.cookie.js"></script>
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="black" />
+  <title>NodeChat</title>
+</head>
+
+<body>
+  
+    <nav class="nav-extended" style="background-color: black; font-family: 'Lato', sans-serif;">
+      <div class="nav-wrapper">
+        <ul id="nav-mobile" class="left show-on-med-and-down">
+          <li class="active">
+            <a href="#" style="font-family: 'Lato', sans-serif; font-size:25px; ">
+              <font color="#8eef1e">Node</font>Chat</a>
+          </li>
+        </ul>
+        <a href="#" class="brand-logo center">
+          <img src="/logo.png">
+        </a>
+        <ul id="nav-mobile" class="right show-on-med-and-down">
+          <li data-activates="slide-out" class="button-collapse" style="margin-right: 5px;">
+            <i class="material-icons">menu</i>
+          </li>
+        </ul>
+      </div>
+    
+    <div class="nav-content">
+         <center><ul class="tabs tabs-transparent">
+        <li class="tab"><a class="active" href="#personelchat">Personel</a></li>
+        <li class="tab"><a  href="#groupchat">Group</a></li>
+      </ul></center>
+    </div>
+  </nav>
+    <ul style=" font-family: 'Lato', sans-serif;" id="slide-out" class="side-nav">
+    <li>
+        <div class="user-view" style="background-image:url('/logo.png');">
+
+    
+      <a  href="#!user"><img id="userimg" class="circle" src=""></a>
+      <a href="#!name"><span id="username" class="black-text name" style="font-size: 16px; font-weight: bold;"></span></a>
+      <a href="#!email"><span id="useremail" class="black-text email" style="font-size: 15px; font-weight: bold;"></span></a>
+    </div></li>
+    <li><a class="waves-effect waves-light btn" id="continue" style="background-color: black; color:#8eef1e">Settings<i class="material-icons right" style="color: white;">settings</i></a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader"><a class="waves-effect waves-light btn" id="continue" style="background-color: black; color:white;">You Are Online<i class="material-icons right" style="color:#8eef1e">fiber_manual_record</i></a></li>
+    <li><a class="subheader"><a id="connclose" class="waves-effect waves-light btn" id="continue" style="background-color: black;"><center><i class="material-icons" style="color:#8eef1e; font-size:30px;">power_settings_new</i></center></a></li>
+    <li><a id="socketid" class="waves-effect" href="#!"></a></li>
+  </ul>
+  <div id="personelchat" class="col s12" style="font-family: 'Lato', sans-serif;">
+    <ul id="activeusers" class="collection">Just A Sec....
+  </ul></div>
+  <div id="groupchat" class="col s12">Working On It.....</div>
+<div id="chatboxes">
+</div>
+
+  <!--  <div id="mario-chat">
+        <h2 id="uid">
+            
+        </h2>
+        <div id="chat-window">
+            <div id="output"></div>
+            <div id="feedback"></div>
+        </div>
+        <input id="handle" type="text" placeholder="To" />
+        <input id="message" type="text" placeholder="Message" />
+        <button id="send">Send</button>
+    </div>
+    <button id="exit">Exit</button>
+</body>-->
+<script src="/chat.js"></script>
+<script type="text/javascript">
+    $("#connclose").click(function () {
+    socket.emit('removeuser', {
+        name: Cookies.get("name")
+    });
+    window.location.replace("https://hidden-spire-15882.herokuapp.com/");
+
+});
+var users = document.getElementById("activeusers");
+var usersclient = [];
+socket.on('onlineusers', function (data) {
+    var i=0;
+    users.innerHTML = "";
+    if(data[0].name == Cookies.get("name") && data.length == 1){
+        users.innerHTML = '<h5 style="text-align:center;">Oops ! No One Is Online</h5>';
+    }
+    data.forEach(function (item) {
+        if (item.name == Cookies.get("name")) {
+            
+        } else {
+            users.innerHTML +=
+             '<a style="color:black" href="/chat/'+item.name+'"><li  style="font-size:18px; font-weight:bold;" class="collection-item avatar"><img src="'+ item.image +' " alt="" class="circle"><span class="title">'+ item.socketid + '</span><p>'+ item.email +'<br>'+ item.name +'</p><a class="secondary-content"><i class="material-icons " style="color:#8eef1e">fiber_manual_record</i></a></li></a>';
+        }
+       
+    });
+    console.log(usersclient);
+});
+
+</script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $(".button-collapse").sideNav();
+$('.modal').modal({
+      dismissible: false
+  });
+
+$(".close").click(function(){
+    $('.modal').modal('close');
+});
+      $('#userimg').attr('src',Cookies.get("imageurl"));
+      $('#username').text(Cookies.get("name"));
+      $('#useremail').text(Cookies.get("Email"));
+
+    });
+  </script>
+</body>
+
+</html>

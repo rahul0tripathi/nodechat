@@ -1,0 +1,226 @@
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="/logo.png" />
+
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="js.cookie.js"></script>
+
+  <!--
+  51253301414-nf3f2mnjee27svs43ph7ch0c3m4h0k62.apps.googleusercontent.com
+-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="black" />
+  <meta name="google-signin-client_id" content="164256044733-q6dqe0qvbsaagg9btk6n15hhbifq62uj.apps.googleusercontent.com">
+  <title>NodeChat</title>
+</head>
+
+<body>
+  <div class="navbar-fixed">
+    <nav style="background-color: black;">
+      <div class="nav-wrapper">
+        <ul id="nav-mobile" class="left show-on-med-and-down">
+          <li class="active">
+            <a href="#" style="font-family: 'Lato', sans-serif; font-size:25px; ">
+              <font color="#8eef1e">Node</font>Chat</a>
+          </li>
+        </ul>
+
+        <a href="#" class="brand-logo center">
+          <img src="/logo.png">
+        </a>
+
+        <ul id="nav-mobile" class="right show-on-med-and-down">
+          <li data-activates="slide-out" class="button-collapse" style="margin-right: 5px;">
+            <i class="material-icons">menu</i>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+  </div>
+  <ul id="slide-out" class="side-nav">
+    <li>
+      <div class="user-view" style="background-image:url('/logo.png'); background-repeat:true;">
+
+        <center>
+          <img src="/logolarge.svg" style="height: 128px;width: 128px; ">
+        </center>
+
+      </div>
+    </li>
+    <li>
+      <a href="#" style="font-family: 'Lato', sans-serif; font-size:25px; ">
+        <font color="#8eef1e">Node</font>Chat</a>
+    </li>
+    <li>
+      <a>© 2018 NodeChat</a>
+    </li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li>
+      <a class="subheader">Please Login !!</a>
+    </li>
+    <li>
+      <a class="btn wave-effect" id="sigin" style="color: black; background-color: transparent; border: none; box-shadow: none; line-height: 0px;">
+        <center>
+          <div style="  vertical-align:bottom; width:200px; text-align: center;" class="g-signin2" data-onsuccess="onSignIn"></div>
+        </center>
+      </a>
+
+    </li>
+    <li><a href="/chat" class="waves-effect waves-light btn" id="continue" style="display:none; background-color: black; color:#8eef1e">Continue<i class="material-icons right" style="color: white;">send</i></a></li>
+  </ul>
+  <center>
+    <div class="row" style="">
+      <div class=" col s12 " style="font-family: 'Lato', sans-serif; font-size:30px; color:#03a9f4">
+        <p>
+          What Is
+          <a href="#">
+            <font color="#8eef1e">Node</font>
+            <font color="black">Chat</font>
+          </a> ?
+        </p>
+      </div>
+      <div class=" col s12 m6">
+        <img src="/logolarge.svg" style="height: 200px;width: 200px; vertical-align: middle;">
+      </div>
+      <div class=" col s12 m6" style="font-family: 'Lato', sans-serif; font-size:22px; text-align: left;  ">
+
+        <p>
+          <blockquote style="border-color:#75b926;">
+            <font color="#75b926">Node</font>
+            <font color="black">Chat</font> Is A Chat App Which Supports Real Time Messaging . It Does Not Use Any Kind Of Database To Store
+            Your Messages And Your Chat Window Gets Refreshed Once You Refresh Your Page.</p>
+        </blockquote>
+      </div>
+    </div>
+  </center>
+  <center>
+    <div class="row" style="">
+      <div class=" col s12 " style="font-family: 'Lato', sans-serif; font-size:30px; color:#03a9f4">
+        <p>
+          How
+          <a href="#">
+            <font color="#8eef1e">Node</font>
+            <font color="black">Chat</font>
+          </a> Works ?
+        </p>
+      </div>
+      <div class=" col s12 m3" style="font-family: 'Lato', sans-serif; font-size:20px; ">
+        <div class="card">
+
+          <img src="/boy.svg" style="height: 128px; width: 128px;">
+
+
+          <p>When You Join Our ChatRoom A Socket Is Created</p>
+        </div>
+
+      </div>
+      <div class="col s12 m3" style="font-family: 'Lato', sans-serif; font-size:20px;">
+        <div class="card">
+          <img src="/socket.svg" style="height: 128px;width: 128px;">
+          <p style="vertical-align: bottom;">And These Sockets Carry Your Message To The Server</p>
+        </div>
+      </div>
+      <div class="col s12 m3" style="font-family: 'Lato', sans-serif; font-size:20px;">
+        <div class="card">
+          <img src="/server.svg" style="height: 128px; width: 128px;">
+          <p>Then Our Servers Emit This Message To The User</p>
+        </div>
+      </div>
+      <div class=" col s12 m3" style="font-family: 'Lato', sans-serif; font-size:20px; ">
+        <div class="card">
+          <img src="/boyb.svg" style="height: 128px; width: 128px;">
+          <p>And The Other User Listens To The Message Through His Own Socket</p>
+        </div>
+      </div>
+    </div>
+  </center>
+  <center>
+         <div class="row" style="">
+      <div class=" col s12 " style="font-family: 'Lato', sans-serif; font-size:30px; color:#03a9f4">
+        <p>
+          Try Out
+          <a href="#">
+            <font color="#8eef1e">Node</font>
+            <font color="black">Chat</font>
+          </a>Now
+        </p>
+      </div>
+   
+      <div class=" col s12" style="font-family: 'Lato', sans-serif; font-size:22px; text-align: left;  ">
+
+      
+          
+         <p class="homelogin" style="text-align: center;"> Login To  <font color="#75b926">Node</font><font color="black">Chat</font> <br>
+            
+        <center>  <div style="  vertical-align:bottom; width:200px; text-align: center;" class="g-signin2 homelogin" data-onsuccess="onSignIn"></div>
+       </center>
+     </p>
+
+ <p id="homecontinue" style="display: none; text-align: center;"> Cheers!! You Are Logged In To  <font color="#75b926">Node</font><font color="black">Chat</font> <br><a href="/chat" class="waves-effect waves-light btn-large"  style=" background-color: black; color:#8eef1e">Continue<i class="material-icons right" style="color: white;">send</i></a> </p>
+  
+        
+      </div>
+    </div>
+  </center>
+  <footer class="page-footer" style="background-color: black; padding-top: 0px;">
+    <div class="footer-copyright">
+      <div class="container">
+        © 2018
+        <font color="#75b926">Node</font>
+        <font color="white">Chat</font>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript">
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      var name = profile.getGivenName();
+      var email = profile.getEmail();
+      var img = profile.getImageUrl();
+      var ID = profile.getId();
+      Cookies.set("name", name);
+      Cookies.set("Email", email);
+      Cookies.set("imageurl", img);
+      Cookies.set('id', ID);
+
+       $('.homelogin').hide(function(){
+            $('#homecontinue').show();
+        });
+        $('#sigin').hide(function(){
+            $('#continue').show();
+        });
+        
+    }
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $(".button-collapse").sideNav();
+      if ((Cookies.set("name")) && (Cookies.set("Email")) && (Cookies.set("imageurl")) && (Cookies.set("id"))) {
+        $('.subheader').hide();
+        $('.homelogin').hide();
+            $('#homecontinue').show();
+       
+        $('#sigin').hide(function(){
+            $('#continue').show();
+        });
+        Materialize.toast("Welcome " + Cookies.get("name"), 4000);
+      }
+
+    });
+  </script>
+</body>
+
+</html>

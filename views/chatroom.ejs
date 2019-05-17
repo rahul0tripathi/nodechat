@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="/logo.png" />
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	  <script src="/js.cookie.js"></script>
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	   <meta name="theme-color" content="black" />
+	   <style type="text/css">
+	
+   .input-field label {
+     color: black;
+   }
+  
+   .input-field input[type=text]:focus + label {
+     color: black;
+   }
+ 
+   #icon_prefix2 input[type=text]:focus {
+     border-bottom: 1px solid black;
+     box-shadow: 0 1px 0 0 black;
+   }
+  
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid black;
+     box-shadow: 0 1px 0 0 black;
+   }
+  
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid black;
+     box-shadow: 0 1px 0 0 black;
+   }
+   
+   .input-field .prefix.active {
+     color: black;
+   }
+       .chip{
+       	height: auto;
+	     }
+	</style>
+  <title>NodeChat||<%= data.name %></title>
+</head>
+<body>
+	 <div class="navbar-fixed">
+    <nav style="background-color: black;">
+      <div class="nav-wrapper">
+        <ul id="nav-mobile" class="left show-on-med-and-down">
+          <li class="active">
+            <a  style="font-family: 'Lato', sans-serif; font-size:25px; ">
+              <font color="#8eef1e">Node</font>Chat</a>
+          </li>
+        </ul>
+
+        <a  class="brand-logo center">
+          <img src="/logo.png">
+        </a>
+
+        <ul id="nav-mobile" class="right show-on-med-and-down">
+          <li style="margin-right: 5px;">
+            <img id="proimg" src="/logo.png" style="border-radius: 50%;width:32px;height:32px; vertical-align: middle;">
+          </li>
+        </ul>
+ <ul id="nav-mobile" class="right show-on-med-and-down">
+          <li data-activates="slide-out" class="button-collapse" style="margin-right: 5px; ">
+            <i class="material-icons">menu</i>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+   <ul style=" font-family: 'Lato', sans-serif; background-image:url('/logo.png');" id="slide-out" class="side-nav">
+  </ul>
+ <div class="row">
+       <div class="col s12 m6">
+         <div class="card  darken-1 " style="height: 100%;">
+            <div class="card-content black-text">
+              <span class="card-title" style="background-color: black; color:#8eef1e;"> <img src="<%= data.image %>" style=" margin:4px; border-radius: 50%;width:38px;height:38px; vertical-align: middle;"><a id="toname" style="color: white;"><%= data.name %></a></span>
+              <div id="messages">
+<div class="chip" id="loading">
+
+  </div>
+</div>
+            </div>
+          </div>
+          <div class="row">
+    <form class="col s12">
+      <div class="row">
+       <span> <div class="input-field col s8">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+          <label for="icon_prefix2">Just Type It In.....</label>
+        </div>
+         <a class="waves-effect waves-light btn" id="send" style="vertical-align: middle; background-color: black; color:#8eef1e">Send<i class="material-icons right" style="color: white;">send</i></a></span>
+      </div>
+    </form>
+  </div>
+
+        </div>
+
+
+
+
+        <div class="col s12 m6 hide-on-med-and-down" >
+        	<div id="personelchat" class="col s12" style="font-family: 'Lato', sans-serif;">
+    <ul id="activeusers" class="collection">Just A Sec....
+  </ul></div>
+        </div>
+      </div>
+</body>
+<script src="/chat.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+        
+        localStorage.setItem(user,message);
+	var users = document.getElementById("activeusers");
+	var sidemenu = document.getElementById("slide-out");
+	var messages = document.getElementById("messages");
+	var textbox = document.getElementById("icon_prefix2");
+    var feedback = document.getElementById("loading");
+    var user = "messages_"+$("#toname").text();
+        if(!localStorage.getItem(user)){
+        var message = [];
+        var message_length = 0;
+        }
+        else{
+            var message = JSON.parse(localStorage.getItem(user));
+            var message_length = message.length;
+            message.forEach(function(data){
+                messages.innerHTML += '<br><div class="chip" style="padding-top:2px;"><img src="'+ data.img +'alt="Contact Person" >'+data.msg+'</div>';
+            });
+        }
+	socket.on('onlineusers', function (data) {
+    var i=0;
+    users.innerHTML = "";
+     sidemenu.innerHTML = "";
+    if(data[0].name == Cookies.get("name") && data.length == 1){
+        users.innerHTML = '<h5 style="text-align:center;">Oops ! No One Is Online</h5>';
+    }
+    data.forEach(function (item) {
+        if (item.name == Cookies.get("name")) {
+            
+        } else {
+            users.innerHTML +=
+             '<a style="color:black" href="/chat/'+item.name+'"><li  style="font-size:18px; font-weight:bold;" class="collection-item avatar"><img src="'+ item.image +' " alt="" class="circle"><span class="title">'+ item.socketid + '</span><p>'+ item.email +'<br>'+ item.name +'</p><a class="secondary-content"><i class="material-icons " style="color:#8eef1e">fiber_manual_record</i></a></li></a>';
+              sidemenu.innerHTML +=
+             '<br><li style="background-color:black; color:white;"><a style="color:white" href="/chat/'+item.name+'"><img src="'+ item.image +' " style="height:38px;width:38px;border-radius:50%; margin:5px; display:inline; vertical-align:middle;">'+ item.name +'<i class="material-icons" style="color:#8eef1e">fiber_manual_record</i></a></li>';
+        }
+       
+    });
+});
+	 $(".button-collapse").sideNav();
+	$("#proimg").attr("src",Cookies.get("imageurl"));
+	$("#send").click(function(){
+    socket.emit('chat', {
+        from: Cookies.get("name"),
+        message: $("#icon_prefix2").val(),
+        handle:$("#toname").text()
+
+    });
+    message[message_length]={
+        img:Cookies.get("imageurl"),
+        msg:$("#icon_prefix2").val()
+    };
+    message_length++;
+    localStorage.setItem(user,JSON.stringify(message));
+messages.innerHTML += '<br><div class="chip" style="padding-top:2px;"><img src="'+ Cookies.get("imageurl") +'alt="Contact Person" >'+$("#icon_prefix2").val()+'</div>';
+$("#icon_prefix2").val("");
+});
+	var event = 'chat' +Cookies.get("name");
+socket.on(event, function (data) {
+    $("#loading").hide();
+    message[message_length]={
+        img:data.image,
+        msg:data.msg
+    };
+    message_length++;
+    localStorage.setItem(user,JSON.stringify(message));
+    messages.innerHTML += '<br><div class="chip" style="padding-top:2px;"><img src="'+ data.image +'alt="Contact Person" >'+data.msg+'</div>';
+});
+textbox.addEventListener('keyup', function () {
+    socket.emit('typing', {
+         from: Cookies.get("name"),
+         image : Cookies.get("imageurl"),
+         to :$("#toname").text()
+
+    });
+});
+var type = 'typing' + Cookies.get("name");
+socket.on(type, function (data) {
+    
+    $("#loading").html('<img src="'+ data.image +'"><p class="saving" style="display: inline; ">'+ data.from +' is typing a message...</p>');
+    $("#loading").show();
+});
+});
+</script>
+</html>

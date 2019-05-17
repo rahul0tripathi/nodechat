@@ -1,0 +1,31 @@
+{
+  "name": "NodeChat",
+  "version": "0.12.1",
+  "description": "NodeChat Official Source",
+  "engines": {
+    "node": "8.9.1"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "forever -w app.js",
+    "test": ""
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "forever": "^0.15.3",
+    "mongoose": "^5.0.5",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}
