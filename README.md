@@ -23,4 +23,7 @@ NodeChat Is A basic nodejs project which uses socket.io to create public chatroo
 ## Author
 Developed And Maintained By [Rahul Tripathi](https://github.com/rahultripathidev)
 
- - This Version is Currently Under Development and Is Unstable 
+ - This Version is Currently Under Development and Might Be Buggy :( . Please Show Us Some :heart:
+ 
+ 
+![# Files](https://raw.githubusercontent.com/rahultripathidev/nodechat/master/ReadMeContent/noonehumor.jpg)
